@@ -1,3 +1,5 @@
+# updated later,old one id main_old 
+
 import os
 import requests
 from fastapi import FastAPI, HTTPException,status
@@ -78,10 +80,8 @@ def spotify_request(method: str, endpoint: str, **kwargs):
     url = f"{SPOTIFY_API_BASE}/{endpoint}"
     token=get_access_token()
 
-    headers={"Authorization":f"Bearer{token}"}
-    if "headers" in kwargs:
-            kwargs.pop("headers")
-    kwargs["headers"]=headers
+    headers=kwargs.pop("headers",{})
+    headers["Authorization"]=f"Bearer{token}"
     
     try:
         resp = requests.request(method, url, **kwargs)
