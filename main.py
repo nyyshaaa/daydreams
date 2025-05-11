@@ -24,14 +24,32 @@ REFRESH_TOKEN = os.getenv("SPOTIFY_REFRESH_TOKEN")
 #     return {"code": code}
 
 # get access token 
+from base64 import b64encode
+
 def get_access_token():
-    res = requests.post('https://accounts.spotify.com/api/token', {
-        'grant_type': 'refresh_token',
-        'refresh_token': REFRESH_TOKEN,
-        'client_id': CLIENT_ID,
-        'client_secret': CLIENT_SECRET,
-    })
-    return res.json()['access_token']
+    client_id     = os.getenv("CLIENT_ID")
+    client_secret = os.getenv("CLIENT_SECRET")
+    refresh_token = os.getenv("SPOTIFY_REFRESH_TOKEN")
+    if not all([client_id, client_secret, refresh_token]):
+        raise HTTPException(500, "Missing one of SPOTIFY_CLIENT_ID/SECRET/REFRESH_TOKEN")
+
+    auth_header = b64encode(f"{client_id}:{client_secret}".encode()).decode()
+    resp = requests.post(
+        "https://accounts.spotify.com/api/token",
+        data={
+            "grant_type":    "refresh_token",
+            "refresh_token": refresh_token
+        },
+        headers={
+            "Authorization": f"Basic {auth_header}",
+            "Content-Type":  "application/x-www-form-urlencoded"
+        }
+    )
+    data = resp.json()
+    if resp.status_code != 200 or "access_token" not in data:
+        # Returns HTTP 502 with Spotify's error JSON
+        raise HTTPException(502, f"Token refresh failed: {data}")
+    return data["access_token"]
 
 
 @app.get("/spotify/now-playing")
