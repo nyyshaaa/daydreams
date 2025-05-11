@@ -129,6 +129,8 @@ def now_playing():
     
     return {"name":item["name"],"artists":item["artists"],"uri":item["uri"]}
 
+
+
 @app.get("/spotify/top-tracks")
 def top_tracks():
     SPOTIFY_ENDPOINT="me/top/tracks?limit=10"

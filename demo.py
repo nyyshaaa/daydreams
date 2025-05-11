@@ -1,588 +1,139 @@
+#songs are randomly played 
 
-
-# /spotify/followed-artists
-
+# /spotify/now-playing
 {
-  "artists": {
-    "href": "https://api.spotify.com/v1/me/following?type=artist&limit=20",
-    "limit": 20,
-    "next": null,
-    "cursors": {
-      "after": null
-    },
-    "total": 3,
-    "items": [
-      {
-        "external_urls": {
-          "spotify": "https://open.spotify.com/artist/23CbYFymkUfLkR5AqGS3yV"
-        },
-        "followers": {
-          "href": null,
-          "total": 297
-        },
-        "genres": [],
-        "href": "https://api.spotify.com/v1/artists/23CbYFymkUfLkR5AqGS3yV",
-        "id": "23CbYFymkUfLkR5AqGS3yV",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab6761610000e5ebc76b3dfb629b4b7d21ddc282",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616100005174c76b3dfb629b4b7d21ddc282",
-            "height": 320,
-            "width": 320
-          },
-          {
-            "url": "https://i.scdn.co/image/ab6761610000f178c76b3dfb629b4b7d21ddc282",
-            "height": 160,
-            "width": 160
-          }
-        ],
-        "name": "Jennifer Foster",
-        "popularity": 25,
-        "type": "artist",
-        "uri": "spotify:artist:23CbYFymkUfLkR5AqGS3yV"
-      },
-      {
-        "external_urls": {
-          "spotify": "https://open.spotify.com/artist/6tFIXOQGf0Hld1gCjBkLaw"
-        },
-        "followers": {
-          "href": null,
-          "total": 8598
-        },
-        "genres": [],
-        "href": "https://api.spotify.com/v1/artists/6tFIXOQGf0Hld1gCjBkLaw",
-        "id": "6tFIXOQGf0Hld1gCjBkLaw",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab6761610000e5ebd41cf4f529fcb34ade25de3d",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616100005174d41cf4f529fcb34ade25de3d",
-            "height": 320,
-            "width": 320
-          },
-          {
-            "url": "https://i.scdn.co/image/ab6761610000f178d41cf4f529fcb34ade25de3d",
-            "height": 160,
-            "width": 160
-          }
-        ],
-        "name": "fwd/slash",
-        "popularity": 49,
-        "type": "artist",
-        "uri": "spotify:artist:6tFIXOQGf0Hld1gCjBkLaw"
-      },
-      {
-        "external_urls": {
-          "spotify": "https://open.spotify.com/artist/04m3oUGzjO3EJTQidFzTgM"
-        },
-        "followers": {
-          "href": null,
-          "total": 94862
-        },
-        "genres": [
-          "tropical house"
-        ],
-        "href": "https://api.spotify.com/v1/artists/04m3oUGzjO3EJTQidFzTgM",
-        "id": "04m3oUGzjO3EJTQidFzTgM",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab6761610000e5ebe8898b816e2b316438ea64c6",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616100005174e8898b816e2b316438ea64c6",
-            "height": 320,
-            "width": 320
-          },
-          {
-            "url": "https://i.scdn.co/image/ab6761610000f178e8898b816e2b316438ea64c6",
-            "height": 160,
-            "width": 160
-          }
-        ],
-        "name": "Nora Van Elken",
-        "popularity": 58,
-        "type": "artist",
-        "uri": "spotify:artist:04m3oUGzjO3EJTQidFzTgM"
-      }
-    ]
-  }
-
-  # /spotify/now-playing
-
-{
-  "timestamp": 1746953471473,
-  "context": {
-    "external_urls": {
-      "spotify": "https://open.spotify.com/playlist/2ZEQCADRlrIoW0nlqcbRvA"
-    },
-    "href": "https://api.spotify.com/v1/playlists/2ZEQCADRlrIoW0nlqcbRvA",
-    "type": "playlist",
-    "uri": "spotify:playlist:2ZEQCADRlrIoW0nlqcbRvA"
-  },
-  "progress_ms": 257674,
-  "item": {
-    "album": {
-      "album_type": "compilation",
-      "artists": [
-        {
-          "external_urls": {
-            "spotify": "https://open.spotify.com/artist/0LyfQWJT6nXafLPZqxe9Of"
-          },
-          "href": "https://api.spotify.com/v1/artists/0LyfQWJT6nXafLPZqxe9Of",
-          "id": "0LyfQWJT6nXafLPZqxe9Of",
-          "name": "Various Artists",
-          "type": "artist",
-          "uri": "spotify:artist:0LyfQWJT6nXafLPZqxe9Of"
-        }
-      ],
-      "available_markets": [
-        "AR",
-        "AU",
-        "AT",
-        "BE",
-        "BO",
-        "BR",
-        "BG",
-        "CA",
-        "CL",
-        "CO",
-        "CR",
-        "CY",
-        "CZ",
-        "DK",
-        "DO",
-        "DE",
-        "EC",
-        "EE",
-        "SV",
-        "FI",
-        "FR",
-        "GR",
-        "GT",
-        "HN",
-        "HK",
-        "HU",
-        "IS",
-        "IE",
-        "IT",
-        "LV",
-        "LT",
-        "LU",
-        "MY",
-        "MT",
-        "MX",
-        "NL",
-        "NZ",
-        "NI",
-        "NO",
-        "PA",
-        "PY",
-        "PE",
-        "PH",
-        "PL",
-        "PT",
-        "SG",
-        "SK",
-        "ES",
-        "SE",
-        "CH",
-        "TW",
-        "TR",
-        "UY",
-        "US",
-        "GB",
-        "AD",
-        "LI",
-        "MC",
-        "ID",
-        "JP",
-        "TH",
-        "VN",
-        "RO",
-        "IL",
-        "ZA",
-        "SA",
-        "AE",
-        "BH",
-        "QA",
-        "OM",
-        "KW",
-        "EG",
-        "MA",
-        "DZ",
-        "TN",
-        "LB",
-        "JO",
-        "PS",
-        "IN",
-        "BY",
-        "KZ",
-        "MD",
-        "UA",
-        "AL",
-        "BA",
-        "HR",
-        "ME",
-        "MK",
-        "RS",
-        "SI",
-        "KR",
-        "BD",
-        "PK",
-        "LK",
-        "GH",
-        "KE",
-        "NG",
-        "TZ",
-        "UG",
-        "AG",
-        "AM",
-        "BS",
-        "BB",
-        "BZ",
-        "BT",
-        "BW",
-        "BF",
-        "CV",
-        "CW",
-        "DM",
-        "FJ",
-        "GM",
-        "GE",
-        "GD",
-        "GW",
-        "GY",
-        "HT",
-        "JM",
-        "KI",
-        "LS",
-        "LR",
-        "MW",
-        "MV",
-        "ML",
-        "MH",
-        "FM",
-        "NA",
-        "NR",
-        "NE",
-        "PW",
-        "PG",
-        "PR",
-        "WS",
-        "SM",
-        "ST",
-        "SN",
-        "SC",
-        "SL",
-        "SB",
-        "KN",
-        "LC",
-        "VC",
-        "SR",
-        "TL",
-        "TO",
-        "TT",
-        "TV",
-        "VU",
-        "AZ",
-        "BN",
-        "BI",
-        "KH",
-        "CM",
-        "TD",
-        "KM",
-        "GQ",
-        "SZ",
-        "GA",
-        "GN",
-        "KG",
-        "LA",
-        "MO",
-        "MR",
-        "MN",
-        "NP",
-        "RW",
-        "TG",
-        "UZ",
-        "ZW",
-        "BJ",
-        "MG",
-        "MU",
-        "MZ",
-        "AO",
-        "CI",
-        "DJ",
-        "ZM",
-        "CD",
-        "CG",
-        "IQ",
-        "LY",
-        "TJ",
-        "VE",
-        "ET",
-        "XK"
-      ],
-      "external_urls": {
-        "spotify": "https://open.spotify.com/album/22RWuYWOQrfipCKG5IZQqc"
-      },
-      "href": "https://api.spotify.com/v1/albums/22RWuYWOQrfipCKG5IZQqc",
-      "id": "22RWuYWOQrfipCKG5IZQqc",
-      "images": [
-        {
-          "height": 640,
-          "url": "https://i.scdn.co/image/ab67616d0000b2736d5d317b2fa0f8cb1acb8b68",
-          "width": 640
-        },
-        {
-          "height": 300,
-          "url": "https://i.scdn.co/image/ab67616d00001e026d5d317b2fa0f8cb1acb8b68",
-          "width": 300
-        },
-        {
-          "height": 64,
-          "url": "https://i.scdn.co/image/ab67616d000048516d5d317b2fa0f8cb1acb8b68",
-          "width": 64
-        }
-      ],
-      "name": "白色橄榄树OST",
-      "release_date": "2025-01-27",
-      "release_date_precision": "day",
-      "total_tracks": 12,
-      "type": "album",
-      "uri": "spotify:album:22RWuYWOQrfipCKG5IZQqc"
-    },
+    "name": "Skydream - Extended Mix",
     "artists": [
-      {
-        "external_urls": {
-          "spotify": "https://open.spotify.com/artist/23CbYFymkUfLkR5AqGS3yV"
-        },
-        "href": "https://api.spotify.com/v1/artists/23CbYFymkUfLkR5AqGS3yV",
-        "id": "23CbYFymkUfLkR5AqGS3yV",
-        "name": "Jennifer Foster",
-        "type": "artist",
-        "uri": "spotify:artist:23CbYFymkUfLkR5AqGS3yV"
-      }
+        {
+            "external_urls": {
+                "spotify": "https://open.spotify.com/artist/5vF7cRV3xbggBsXvqIM5Ww"
+            },
+            "href": "https://api.spotify.com/v1/artists/5vF7cRV3xbggBsXvqIM5Ww",
+            "id": "5vF7cRV3xbggBsXvqIM5Ww",
+            "name": "Radush",
+            "type": "artist",
+            "uri": "spotify:artist:5vF7cRV3xbggBsXvqIM5Ww"
+        }
     ],
-    "available_markets": [
-      "AR",
-      "AU",
-      "AT",
-      "BE",
-      "BO",
-      "BR",
-      "BG",
-      "CA",
-      "CL",
-      "CO",
-      "CR",
-      "CY",
-      "CZ",
-      "DK",
-      "DO",
-      "DE",
-      "EC",
-      "EE",
-      "SV",
-      "FI",
-      "FR",
-      "GR",
-      "GT",
-      "HN",
-      "HK",
-      "HU",
-      "IS",
-      "IE",
-      "IT",
-      "LV",
-      "LT",
-      "LU",
-      "MY",
-      "MT",
-      "MX",
-      "NL",
-      "NZ",
-      "NI",
-      "NO",
-      "PA",
-      "PY",
-      "PE",
-      "PH",
-      "PL",
-      "PT",
-      "SG",
-      "SK",
-      "ES",
-      "SE",
-      "CH",
-      "TW",
-      "TR",
-      "UY",
-      "US",
-      "GB",
-      "AD",
-      "LI",
-      "MC",
-      "ID",
-      "JP",
-      "TH",
-      "VN",
-      "RO",
-      "IL",
-      "ZA",
-      "SA",
-      "AE",
-      "BH",
-      "QA",
-      "OM",
-      "KW",
-      "EG",
-      "MA",
-      "DZ",
-      "TN",
-      "LB",
-      "JO",
-      "PS",
-      "IN",
-      "BY",
-      "KZ",
-      "MD",
-      "UA",
-      "AL",
-      "BA",
-      "HR",
-      "ME",
-      "MK",
-      "RS",
-      "SI",
-      "KR",
-      "BD",
-      "PK",
-      "LK",
-      "GH",
-      "KE",
-      "NG",
-      "TZ",
-      "UG",
-      "AG",
-      "AM",
-      "BS",
-      "BB",
-      "BZ",
-      "BT",
-      "BW",
-      "BF",
-      "CV",
-      "CW",
-      "DM",
-      "FJ",
-      "GM",
-      "GE",
-      "GD",
-      "GW",
-      "GY",
-      "HT",
-      "JM",
-      "KI",
-      "LS",
-      "LR",
-      "MW",
-      "MV",
-      "ML",
-      "MH",
-      "FM",
-      "NA",
-      "NR",
-      "NE",
-      "PW",
-      "PG",
-      "PR",
-      "WS",
-      "SM",
-      "ST",
-      "SN",
-      "SC",
-      "SL",
-      "SB",
-      "KN",
-      "LC",
-      "VC",
-      "SR",
-      "TL",
-      "TO",
-      "TT",
-      "TV",
-      "VU",
-      "AZ",
-      "BN",
-      "BI",
-      "KH",
-      "CM",
-      "TD",
-      "KM",
-      "GQ",
-      "SZ",
-      "GA",
-      "GN",
-      "KG",
-      "LA",
-      "MO",
-      "MR",
-      "MN",
-      "NP",
-      "RW",
-      "TG",
-      "UZ",
-      "ZW",
-      "BJ",
-      "MG",
-      "MU",
-      "MZ",
-      "AO",
-      "CI",
-      "DJ",
-      "ZM",
-      "CD",
-      "CG",
-      "IQ",
-      "LY",
-      "TJ",
-      "VE",
-      "ET",
-      "XK"
-    ],
-    "disc_number": 1,
-    "duration_ms": 276923,
-    "explicit": false,
-    "external_ids": {
-      "isrc": "HKG731402043"
-    },
-    "external_urls": {
-      "spotify": "https://open.spotify.com/track/1rC6AwFh6idZGz9wpBWCIr"
-    },
-    "href": "https://api.spotify.com/v1/tracks/1rC6AwFh6idZGz9wpBWCIr",
-    "id": "1rC6AwFh6idZGz9wpBWCIr",
-    "is_local": false,
-    "name": "Find My Way Back to Life",
-    "popularity": 43,
-    "preview_url": null,
-    "track_number": 12,
-    "type": "track",
-    "uri": "spotify:track:1rC6AwFh6idZGz9wpBWCIr"
-  },
-  "currently_playing_type": "track",
-  "actions": {
-    "disallows": {
-      "pausing": true
-    }
-  },
-  "is_playing": false
+    "uri": "spotify:track:7I2qkGoICqGb8cIQOqrWYC"
 }
+
+# /spotify/top-tracks
+
+[
+    {
+        "name": "Into the Pieces(电视剧《白色橄榄树》插曲)",
+        "artists": [
+            "DOROTHY"
+        ],
+        "album": "白色橄榄树OST",
+        "uri": "spotify:track:09yqW0E3KY8jMVBNYAp54k",
+        "url": "https://open.spotify.com/track/09yqW0E3KY8jMVBNYAp54k"
+    },
+    {
+        "name": "I'll Be Fine",
+        "artists": [
+            "fwd/slash",
+            "Stridon",
+            "Rik Weber"
+        ],
+        "album": "I’ll Be Fine",
+        "uri": "spotify:track:3BsTZdumXj13kA6evuDybG",
+        "url": "https://open.spotify.com/track/3BsTZdumXj13kA6evuDybG"
+    },
+    {
+        "name": "Sonic Serenity",
+        "artists": [
+            "fwd/slash"
+        ],
+        "album": "Sonic Serenity",
+        "uri": "spotify:track:1QSATY0asrdgRYwiAFUKDX",
+        "url": "https://open.spotify.com/track/1QSATY0asrdgRYwiAFUKDX"
+    },
+    {
+        "name": "Celestial",
+        "artists": [
+            "Nora Van Elken"
+        ],
+        "album": "Celestial",
+        "uri": "spotify:track:2kMd68JKQBkywKtPuLqm2m",
+        "url": "https://open.spotify.com/track/2kMd68JKQBkywKtPuLqm2m"
+    },
+    {
+        "name": "Voulez-Vous",
+        "artists": [
+            "Syzz",
+            "Nora Van Elken"
+        ],
+        "album": "Voulez-Vous",
+        "uri": "spotify:track:3uSfyoohZIynHcmOReUrQE",
+        "url": "https://open.spotify.com/track/3uSfyoohZIynHcmOReUrQE"
+    },
+    {
+        "name": "Illume - fwd/slash Edit",
+        "artists": [
+            "Louis Mercier",
+            "fwd/slash"
+        ],
+        "album": "Illume (fwd/slash Edit)",
+        "uri": "spotify:track:6NwhgMxC0eYoveYzfhXDyK",
+        "url": "https://open.spotify.com/track/6NwhgMxC0eYoveYzfhXDyK"
+    },
+    {
+        "name": "Don't Wanna Let You Go",
+        "artists": [
+            "fwd/slash"
+        ],
+        "album": "Don't Wanna Let You Go",
+        "uri": "spotify:track:6UZPpeLO9Clo8YCCwwmuP9",
+        "url": "https://open.spotify.com/track/6UZPpeLO9Clo8YCCwwmuP9"
+    },
+    {
+        "name": "How Deep Is Your Love",
+        "artists": [
+            "fwd/slash"
+        ],
+        "album": "How Deep Is Your Love",
+        "uri": "spotify:track:6whE9W4LkAaTyltd0Y44jm",
+        "url": "https://open.spotify.com/track/6whE9W4LkAaTyltd0Y44jm"
+    },
+    {
+        "name": "Say It Right",
+        "artists": [
+            "fwd/slash"
+        ],
+        "album": "Say It Right",
+        "uri": "spotify:track:3lB6O98xjnjjPnnuDlEOV5",
+        "url": "https://open.spotify.com/track/3lB6O98xjnjjPnnuDlEOV5"
+    },
+    {
+        "name": "Nataka",
+        "artists": [
+            "fwd/slash"
+        ],
+        "album": "Nataka",
+        "uri": "spotify:track:0Dkh0KOhCjUNe4S37Pfrrb",
+        "url": "https://open.spotify.com/track/0Dkh0KOhCjUNe4S37Pfrrb"
+    }
+]
+
+
+# spotify/followed-artists
+
+[
+    {
+        "name": "Jennifer Foster",
+        "uri": "spotify:artist:23CbYFymkUfLkR5AqGS3yV",
+        "url": "https://open.spotify.com/artist/23CbYFymkUfLkR5AqGS3yV"
+    },
+    {
+        "name": "fwd/slash",
+        "uri": "spotify:artist:6tFIXOQGf0Hld1gCjBkLaw",
+        "url": "https://open.spotify.com/artist/6tFIXOQGf0Hld1gCjBkLaw"
+    },
+    {
+        "name": "Nora Van Elken",
+        "uri": "spotify:artist:04m3oUGzjO3EJTQidFzTgM",
+        "url": "https://open.spotify.com/artist/04m3oUGzjO3EJTQidFzTgM"
+    }
+]
