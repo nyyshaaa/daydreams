@@ -81,7 +81,7 @@ def spotify_request(method: str, endpoint: str, **kwargs):
     token=get_access_token()
 
     headers=kwargs.pop("headers",{})
-    headers["Authorization"]=f"Bearer{token}"
+    headers["Authorization"]=f"Bearer {token}"
     
     try:
         resp = requests.request(method, url, headers=headers,**kwargs)
