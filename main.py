@@ -6,8 +6,8 @@ from pydantic import BaseModel
 
 app = FastAPI()     
 
-CLIENT_ID     = os.getenv("SPOTIFY_CLIENT_ID")
-CLIENT_SECRET = os.getenv("SPOTIFY_CLIENT_SECRET")
+CLIENT_ID     = os.getenv("CLIENT_ID")
+CLIENT_SECRET = os.getenv("CLIENT_SECRET")
 REFRESH_TOKEN = os.getenv("SPOTIFY_REFRESH_TOKEN")
 
 # Requirements
@@ -18,7 +18,7 @@ REFRESH_TOKEN = os.getenv("SPOTIFY_REFRESH_TOKEN")
 # Deploy the API in your portfolio website itself. Do NOT show the demo on localhost.
 
 
-
+# get authorization code manually once
 # @app.get("/auth/spotify/callback")
 # def spotify_callback(code: str):
 #     return {"code": code}
