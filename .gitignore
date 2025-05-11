@@ -1,0 +1,7 @@
+.env
+
+myenv/
+ 
+.git
+# Ignore Python cache
+__pycache__/
