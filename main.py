@@ -5,6 +5,9 @@ import requests
 from fastapi import FastAPI, HTTPException,status
 from base64 import b64encode
 
+from dotenv import load_dotenv
+load_dotenv()
+
 
 app = FastAPI()     
 
@@ -50,8 +53,9 @@ SPOTIFY_API_BASE="https://api.spotify.com/v1"
  
 
 # get access token from SPOTIFY_REFRESH_TOKEN
+
 def get_access_token():
-    client_id     = os.getenv("CLIENT_ID")
+    client_id = os.getenv("CLIEND_ID")
     client_secret = os.getenv("CLIENT_SECRET")
     refresh_token = os.getenv("SPOTIFY_REFRESH_TOKEN")
     if not all([client_id, client_secret, refresh_token]):
@@ -70,15 +74,25 @@ def get_access_token():
         }
     )
     data = resp.json()
+    print(data)
     if resp.status_code != 200 or "access_token" not in data:
         # Returns HTTP 502 with Spotify's error JSON
         raise HTTPException(502, f"Token refresh failed: {data}")
     return data["access_token"]
 
 
+@app.get("/spotify/debug/token")
+def debug_token():
+    token = get_access_token()
+    print(token)
+    return token
+
+
 def spotify_request(method: str, endpoint: str, **kwargs):
     url = f"{SPOTIFY_API_BASE}/{endpoint}"
     token=get_access_token()
+
+    print(token)
 
     headers=kwargs.pop("headers",{})
     headers["Authorization"]=f"Bearer {token}"
