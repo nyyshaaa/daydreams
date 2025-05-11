@@ -8,13 +8,6 @@
 
 
 
-# # Requirements
-# # Show a list of the artists you follow.
-# # Provide an option to stop the currently playing song.
-# # Provide an option to start playing any of the top 10 songs.
-# # You can just return a JSON that can be pretty-printed in the browser. UI is NOT needed.
-# # Deploy the API in your portfolio website itself. Do NOT show the demo on localhost.
-
 
 # # get authorization code manually once
 # # spotify will send the code on this endpoint
@@ -75,7 +68,6 @@
 #                      headers={"Authorization": f"Bearer {token}"})
 #     return r.json()
 
-# # changed to put after submission , i checked only two endpoints before by actually sending a request on browser and missed to check these.
 # @app.put("/spotify/play/{track_id}")
 # def play_track(track_id: str):
 #     token = get_access_token()

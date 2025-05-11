@@ -14,16 +14,9 @@ app = FastAPI()
 SPOTIFY_API_BASE="https://api.spotify.com/v1"
 
 
-# Requirements
-# Show a list of the artists you follow.
-# Provide an option to stop the currently playing song.
-# Provide an option to start playing any of the top 10 songs.
-# You can just return a JSON that can be pretty-printed in the browser. UI is NOT needed.
-# Deploy the API in your portfolio website itself. Do NOT show the demo on localhost.
-
 # Steps----->
 # 1. Go to sptify developer dashboard and get the client secret and id . Paste a dummy link in redirect_uri.
-# 2. Deploy it with secret and it .
+# 2. Deploy it with secrets .
 # 3. Get the deployed link
 # 4. Update in redirect_uri in spotify developer dashboard and also in .env file 
 # 5. Send a request to spotify asking for permisssion with client_id,client_secret,redirect_uri,scopes 
@@ -111,14 +104,18 @@ def spotify_request(method: str, endpoint: str, **kwargs):
     #     detail=f"Spotify API error {resp.status_code}: {resp.text}"
     # )
 
+    if resp.status_code==204:
+        return {"No content received"}
+
     # Now the HTTP request succeeded—inspect resp.status_code
-    if 200 <= resp.status_code < 300 and resp.status_code!=204: 
+    if 200 <= resp.status_code < 300: 
         return resp.json()
+    
 
     # Spotify returned an error status.  Forward it:
     raise HTTPException(
         status_code=resp.status_code,        
-        detail=f"Spotify API error {resp.status_code}: {resp.text}"
+        detail=f"Spotify API error {resp.status_code}: {  resp.text}"
     )
 
 
@@ -152,14 +149,14 @@ def play_track(track_id: str):
     SPOTIFY_ENDPOINT="me/player/play"
     r=spotify_request("PUT",SPOTIFY_ENDPOINT,json=body)
 
-   
-    print(r)
-    return {"status": r.status_code, "is_playing": r.is_playing}
+    return {"status": r.status_code}
 
 
 @app.put("/spotify/pause")
 def pause_playback():
     SPOTIFY_ENDPOINT="me/player/pause"
     r=spotify_request("PUT",SPOTIFY_ENDPOINT)
-    print(r)
-    return {"status": r.status_code}
+    return r
+
+# curl -X PUT https://daydreams.onrender.com/spotify/pause
+# {"detail":"Spotify API error 403: {\n  \"error\" : {\n    \"status\" : 403,\n    \"message\" : \"Player command failed: Premium required\",\n    \"reason\" : \"PREMIUM_REQUIRED\"\n  }\n}"}
