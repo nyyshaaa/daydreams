@@ -59,7 +59,7 @@ def get_access_token():
     client_secret = os.getenv("CLIENT_SECRET")
     refresh_token = os.getenv("SPOTIFY_REFRESH_TOKEN")
     if not all([client_id, client_secret, refresh_token]):
-        raise HTTPException(500, "Missing one of SPOTIFY_CLIENT_ID/SECRET/REFRESH_TOKEN")
+        raise HTTPException(500, "Missing one of CLIEND_ID/CLIENT_SECRET/SPOTIFY_REFRESH_TOKEN")
 
     auth_header = b64encode(f"{client_id}:{client_secret}".encode()).decode()
     resp = requests.post(
