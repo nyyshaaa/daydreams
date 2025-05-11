@@ -124,15 +124,28 @@ def spotify_request(method: str, endpoint: str, **kwargs):
 def now_playing():
     SPOTIFY_ENDPOINT="me/player/currently-playing"
     r=spotify_request("GET",SPOTIFY_ENDPOINT)
+
+    item=r.get("item",{})
     
-    return r
+    return {"name":item["name"],"artists":item["artists"],"uri":item["uri"]}
 
 @app.get("/spotify/top-tracks")
 def top_tracks():
     SPOTIFY_ENDPOINT="me/top/tracks?limit=10"
     r=spotify_request("GET",SPOTIFY_ENDPOINT)
 
-    return r
+    items = r.get("items", [])
+
+    return [
+        {
+            "name":    track["name"],
+            "artists": [artist["name"] for artist in track["artists"]],
+            "album":   track["album"]["name"],
+            "uri":     track["uri"],
+            "url":     track["external_urls"]["spotify"]
+        }
+        for track in items
+    ]
 
 
 
@@ -141,7 +154,16 @@ def followed_artists():
     SPOTIFY_ENDPOINT="me/following?type=artist"
     r=spotify_request("GET",SPOTIFY_ENDPOINT)
 
-    return r
+    items = r.get("artists", {}).get("items", [])
+
+    return [
+        {
+            "name": artist["name"],
+            "uri":  artist["uri"],
+            "url":  artist["external_urls"]["spotify"]
+        }
+        for artist in items
+    ]
 
 @app.put("/spotify/play/{track_id}")
 def play_track(track_id: str):
