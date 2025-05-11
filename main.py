@@ -4,7 +4,7 @@ import requests
 from fastapi import FastAPI, HTTPException, Path
 from pydantic import BaseModel
 
-app = FastAPI()  
+app = FastAPI()     
 
 CLIENT_ID     = os.getenv("SPOTIFY_CLIENT_ID")
 CLIENT_SECRET = os.getenv("SPOTIFY_CLIENT_SECRET")
