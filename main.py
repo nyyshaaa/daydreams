@@ -84,15 +84,12 @@ def get_access_token():
 @app.get("/spotify/debug/token")
 def debug_token():
     token = get_access_token()
-    print(token)
     return token
 
 
 def spotify_request(method: str, endpoint: str, **kwargs):
     url = f"{SPOTIFY_API_BASE}/{endpoint}"
     token=get_access_token()
-
-    print(token)
 
     headers=kwargs.pop("headers",{})
     headers["Authorization"]=f"Bearer {token}"
@@ -106,11 +103,16 @@ def spotify_request(method: str, endpoint: str, **kwargs):
             detail=f"Network error talking to Spotify: {e}"
         )
     
-    if resp.status_code == 204:
-        return None
+    print(resp)
+    
+    # if resp.status_code == 204:
+    #     raise HTTPException(
+    #     status_code=status.HTTP_204_NO_CONTENT,        
+    #     detail=f"Spotify API error {resp.status_code}: {resp.text}"
+    # )
 
     # Now the HTTP request succeeded—inspect resp.status_code
-    if 200 <= resp.status_code < 300: 
+    if 200 <= resp.status_code < 300 and resp.status_code!=204: 
         return resp.json()
 
     # Spotify returned an error status.  Forward it:
