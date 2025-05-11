@@ -74,8 +74,15 @@ def get_access_token():
     return data["access_token"]
 
 
-def request(method: str, endpoint: str, **kwargs):
+def spotify_request(method: str, endpoint: str, **kwargs):
     url = f"{SPOTIFY_API_BASE}/{endpoint}"
+    token=get_access_token()
+
+    headers={"Authorization":f"Bearer{token}"}
+    if "headers" in kwargs:
+            kwargs.pop("headers")
+    kwargs["headers"]=headers
+    
     try:
         resp = requests.request(method, url, **kwargs)
     except requests.RequestException as e:
@@ -84,6 +91,9 @@ def request(method: str, endpoint: str, **kwargs):
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
             detail=f"Network error talking to Spotify: {e}"
         )
+    
+    if resp.status_code == 204:
+        return None
 
     # Now the HTTP request succeeded—inspect resp.status_code
     if 200 <= resp.status_code < 300: 
@@ -95,19 +105,19 @@ def request(method: str, endpoint: str, **kwargs):
         detail=f"Spotify API error {resp.status_code}: {resp.text}"
     )
 
-token = get_access_token()
+
 
 @app.get("/spotify/now-playing")
 def now_playing():
     SPOTIFY_ENDPOINT="me/player/currently-playing"
-    r=request("GET",SPOTIFY_ENDPOINT,headers={"Authorization": f"Bearer {token}"})
+    r=spotify_request("GET",SPOTIFY_ENDPOINT)
     
     return r
 
 @app.get("/spotify/top-tracks")
 def top_tracks():
     SPOTIFY_ENDPOINT="me/top/tracks?limit=10"
-    r=request("GET",SPOTIFY_ENDPOINT,headers={"Authorization": f"Bearer {token}"})
+    r=spotify_request("GET",SPOTIFY_ENDPOINT)
 
     return r
 
@@ -116,7 +126,7 @@ def top_tracks():
 @app.get("/spotify/followed-artists")
 def followed_artists():
     SPOTIFY_ENDPOINT="me/following?type=artist"
-    r=request("GET",SPOTIFY_ENDPOINT,headers={"Authorization": f"Bearer {token}"})
+    r=spotify_request("GET",SPOTIFY_ENDPOINT)
 
     return r
 
@@ -124,8 +134,7 @@ def followed_artists():
 def play_track(track_id: str):
     body={"uris": [f"spotify:track:{track_id}"]}
     SPOTIFY_ENDPOINT="me/player/play"
-    r=request("PUT",SPOTIFY_ENDPOINT,
-              headers={"Authorization": f"Bearer {token}","Content-Type": "application/json"},json=body)
+    r=spotify_request("PUT",SPOTIFY_ENDPOINT,json=body)
 
    
     print(r)
@@ -135,7 +144,6 @@ def play_track(track_id: str):
 @app.put("/spotify/pause")
 def pause_playback():
     SPOTIFY_ENDPOINT="me/player/pause"
-    r=request("PUT",SPOTIFY_ENDPOINT,
-              headers={"Authorization": f"Bearer {token}","Content-Type": "application/json"})
+    r=spotify_request("PUT",SPOTIFY_ENDPOINT)
     print(r)
     return {"status": r.status_code}
