@@ -105,7 +105,7 @@ def spotify_request(method: str, endpoint: str, **kwargs):
     # )
 
     if resp.status_code==204:
-        return {"No content received"}
+        return None
 
     # Now the HTTP request succeeded—inspect resp.status_code
     if 200 <= resp.status_code < 300: 
@@ -125,7 +125,10 @@ def now_playing():
     SPOTIFY_ENDPOINT="me/player/currently-playing"
     r=spotify_request("GET",SPOTIFY_ENDPOINT)
 
-    item=r.get("item",{})
+    if not r :
+        return {"No content received"}
+
+    item=r.get("item",{}) 
     
     return {"name":item["name"],"artists":item["artists"],"uri":item["uri"]}
 
