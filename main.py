@@ -84,7 +84,7 @@ def spotify_request(method: str, endpoint: str, **kwargs):
     headers["Authorization"]=f"Bearer{token}"
     
     try:
-        resp = requests.request(method, url, **kwargs)
+        resp = requests.request(method, url, headers=headers,**kwargs)
     except requests.RequestException as e:
         # network or DNS error, timeout, etc.
         raise HTTPException(
