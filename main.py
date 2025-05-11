@@ -1,14 +1,13 @@
 import os
-import time
 import requests
-from fastapi import FastAPI, HTTPException, Path
-from pydantic import BaseModel
+from fastapi import FastAPI, HTTPException,status
+from base64 import b64encode
+
 
 app = FastAPI()     
 
-CLIENT_ID     = os.getenv("CLIENT_ID")
-CLIENT_SECRET = os.getenv("CLIENT_SECRET")
-REFRESH_TOKEN = os.getenv("SPOTIFY_REFRESH_TOKEN")
+SPOTIFY_API_BASE="https://api.spotify.com/v1"
+
 
 # Requirements
 # Show a list of the artists you follow.
@@ -17,15 +16,38 @@ REFRESH_TOKEN = os.getenv("SPOTIFY_REFRESH_TOKEN")
 # You can just return a JSON that can be pretty-printed in the browser. UI is NOT needed.
 # Deploy the API in your portfolio website itself. Do NOT show the demo on localhost.
 
+# Steps----->
+# 1. Go to sptify developer dashboard and get the client secret and id . Paste a dummy link in redirect_uri.
+# 2. Deploy it with secret and it .
+# 3. Get the deployed link
+# 4. Update in redirect_uri in spotify developer dashboard and also in .env file 
+# 5. Send a request to spotify asking for permisssion with client_id,client_secret,redirect_uri,scopes 
+# https://accounts.spotify.com/authorize?client_id=YOUR_CLIENT_ID&response_type=code&redirect_uri=YOUR_REDIRECT_URI&scope=user-read-playback-state user-read-currently-playing user-top-read user-follow-read user-modify-playback-state
 
+# 6. Spotify will send a code get it via making a get request to auth/spotify/callback
+# 7. Make a post request with that temporary code to get refresh token
+ 
 # get authorization code manually once
+# spotify will send the code on this uri -- REDIRECT_URI
+# code will be received after confirmation by spotify that api can interact with spotify 
+
 # @app.get("/auth/spotify/callback")
 # def spotify_callback(code: str):
 #     return {"code": code}
 
-# get access token 
-from base64 import b64encode
+# post request to get the tokens
 
+# curl -X POST https://accounts.spotify.com/api/token \
+# -H "Content-Type: application/x-www-form-urlencoded" \
+# -d "grant_type=authorization_code" \
+# -d "code=PASTE CODE RECEIVED AFTER SPOTIFY APPROVAL" \
+# -d "redirect_uri=PASTE REDIRECT_URI" \
+# -d "client_id=PASTE CLIENT _ID" \
+# -d "client_secret=PASTE CLIENT_SECRET"
+
+ 
+
+# get access token from SPOTIFY_REFRESH_TOKEN
 def get_access_token():
     client_id     = os.getenv("CLIENT_ID")
     client_secret = os.getenv("CLIENT_SECRET")
@@ -52,43 +74,68 @@ def get_access_token():
     return data["access_token"]
 
 
+def request(method: str, endpoint: str, **kwargs):
+    url = f"{SPOTIFY_API_BASE}/{endpoint}"
+    try:
+        resp = requests.request(method, url, **kwargs)
+    except requests.RequestException as e:
+        # network or DNS error, timeout, etc.
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail=f"Network error talking to Spotify: {e}"
+        )
+
+    # Now the HTTP request succeeded—inspect resp.status_code
+    if 200 <= resp.status_code < 300: 
+        return resp.json()
+
+    # Spotify returned an error status.  Forward it:
+    raise HTTPException(
+        status_code=resp.status_code,        
+        detail=f"Spotify API error {resp.status_code}: {resp.text}"
+    )
+
+token = get_access_token()
+
 @app.get("/spotify/now-playing")
 def now_playing():
-    token = get_access_token()
-    r = requests.get("https://api.spotify.com/v1/me/player/currently-playing",
-                     headers={"Authorization": f"Bearer {token}"})
-    return r.json()
+    SPOTIFY_ENDPOINT="me/player/currently-playing"
+    r=request("GET",SPOTIFY_ENDPOINT,headers={"Authorization": f"Bearer {token}"})
+    
+    return r
 
 @app.get("/spotify/top-tracks")
 def top_tracks():
-    token = get_access_token()
-    r = requests.get("https://api.spotify.com/v1/me/top/tracks?limit=10",
-                     headers={"Authorization": f"Bearer {token}"})
-    return r.json()
+    SPOTIFY_ENDPOINT="me/top/tracks?limit=10"
+    r=request("GET",SPOTIFY_ENDPOINT,headers={"Authorization": f"Bearer {token}"})
+
+    return r
 
 
 
 @app.get("/spotify/followed-artists")
 def followed_artists():
-    token = get_access_token()
-    r = requests.get("https://api.spotify.com/v1/me/following?type=artist",
-                     headers={"Authorization": f"Bearer {token}"})
-    return r.json()
+    SPOTIFY_ENDPOINT="me/following?type=artist"
+    r=request("GET",SPOTIFY_ENDPOINT,headers={"Authorization": f"Bearer {token}"})
 
-@app.get("/spotify/play/{track_id}")
-def play(track_id: str):
-    token = get_access_token()
-    r = requests.put("https://api.spotify.com/v1/me/player/play",
-                     headers={"Authorization": f"Bearer {token}"},
-                     json={"uris": [f"spotify:track:{track_id}"]})
-    return {"status": "playing", "track_id": track_id}
+    return r
 
-@app.get("/spotify/pause")
-def pause():
-    token = get_access_token()
-    r = requests.put("https://api.spotify.com/v1/me/player/pause",
-                     headers={"Authorization": f"Bearer {token}"})
-    return {"status": "paused"}
+@app.put("/spotify/play/{track_id}")
+def play_track(track_id: str):
+    body={"uris": [f"spotify:track:{track_id}"]}
+    SPOTIFY_ENDPOINT="me/player/play"
+    r=request("PUT",SPOTIFY_ENDPOINT,
+              headers={"Authorization": f"Bearer {token}","Content-Type": "application/json"},json=body)
+
+   
+    print(r)
+    return {"status": r.status_code, "is_playing": r.is_playing}
 
 
- 
+@app.put("/spotify/pause")
+def pause_playback():
+    SPOTIFY_ENDPOINT="me/player/pause"
+    r=request("PUT",SPOTIFY_ENDPOINT,
+              headers={"Authorization": f"Bearer {token}","Content-Type": "application/json"})
+    print(r)
+    return {"status": r.status_code}
